@@ -27,3 +27,17 @@ def get_task(task_id):
     if task:
         return task.to_dict(), 200
     return {"message": "Task not found"}, 404
+
+
+@app.route("/tasks/<int:task_id>", methods=("PUT",))
+def update_task(task_id):
+    data = request.get_json()
+    task = task_repository.update(
+        task_id=task_id,
+        title=data.get("title"),
+        description=data.get("description"),
+        completed=data.get("completed"),
+    )
+    if task:
+        return task.to_dict(), 200
+    return {"message": "Task not found"}, 404

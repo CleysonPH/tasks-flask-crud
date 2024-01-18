@@ -20,3 +20,13 @@ class TaskRepository:
             if task.id == task_id:
                 return task
         return None
+
+    def update(
+        self, task_id: int, title: str, description: str, completed: bool
+    ) -> Task | None:
+        task = self.get_by_id(task_id)
+        if task:
+            task.title = title
+            task.description = description
+            task.completed = completed
+        return task
