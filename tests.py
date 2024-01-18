@@ -15,3 +15,17 @@ def test_create_task():
     assert "id" in response.json()
     assert response.json()["completed"] is False
     tasks.append(response.json()["id"])
+
+
+def test_get_tasks():
+    response = requests.get(f"{BASE_URL}/tasks")
+    assert response.status_code == 200
+    assert "tasks" in response.json()
+    assert "total_tasks" in response.json()
+
+
+def test_get_task():
+    if tasks:
+        response = requests.get(f"{BASE_URL}/tasks/{tasks[0]}")
+        assert response.status_code == 200
+        assert response.json()["id"] == tasks[0]
