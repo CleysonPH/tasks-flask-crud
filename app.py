@@ -9,7 +9,8 @@ task_repository = TaskRepository()
 @app.route("/tasks", methods=("POST", "GET"))
 def create_task():
     if request.method == "GET":
-        return [task.to_dict() for task in task_repository.get_all()], 200
+        tasks = [task.to_dict() for task in task_repository.get_all()]
+        return {"tasks": tasks, "total_tasks": len(tasks)}, 200
     data = request.get_json()
     task = task_repository.create(
         title=data.get("title"), description=data.get("description")
