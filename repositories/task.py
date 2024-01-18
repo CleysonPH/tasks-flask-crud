@@ -30,3 +30,10 @@ class TaskRepository:
             task.description = description
             task.completed = completed
         return task
+
+    def delete(self, task_id: int) -> bool:
+        task = self.get_by_id(task_id)
+        if task:
+            self.__tasks.remove(task)
+            return True
+        return False

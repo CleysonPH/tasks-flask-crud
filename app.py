@@ -41,3 +41,10 @@ def update_task(task_id):
     if task:
         return task.to_dict(), 200
     return {"message": "Task not found"}, 404
+
+
+@app.route("/tasks/<int:task_id>", methods=("DELETE",))
+def delete_task(task_id):
+    if task_repository.delete(task_id):
+        return "", 204
+    return {"message": "Task not found"}, 404
