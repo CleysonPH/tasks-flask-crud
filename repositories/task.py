@@ -14,3 +14,9 @@ class TaskRepository:
 
     def get_all(self) -> list[Task]:
         return self.__tasks.copy()
+
+    def get_by_id(self, task_id: int) -> Task | None:
+        for task in self.__tasks:
+            if task.id == task_id:
+                return task
+        return None

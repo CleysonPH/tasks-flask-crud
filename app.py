@@ -19,3 +19,11 @@ def create_task():
 def get_tasks():
     tasks = [task.to_dict() for task in task_repository.get_all()]
     return {"tasks": tasks, "total_tasks": len(tasks)}, 200
+
+
+@app.route("/tasks/<int:task_id>", methods=("GET",))
+def get_task(task_id):
+    task = task_repository.get_by_id(task_id)
+    if task:
+        return task.to_dict(), 200
+    return {"message": "Task not found"}, 404
